@@ -1,20 +1,47 @@
 {
-  "name": "8.2-postgres-read",
+  "name": "what-the-flag",
   "version": "1.0.0",
-  "description": "",
+  "description": "A chaotic flag-identification quiz where geopolitical embarrassment is guaranteed. Built with Node.js, Express, PostgreSQL, and EJS. Modular, responsive, and mildly insulting.",
   "main": "index.js",
   "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "engines": {
+    "node": ">= 14.0.0",
+    "npm": ">= 6.0.0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "homepage": "https://what-the-flag-<your-app-name>.canadacentral-01.azurewebsites.net/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/junaid-mohammad/What-the-Flag.git"
+  },
+  "bugs": "",
+  "keywords": [
+    "What the Flag",
+    "Flags Quiz",
+    "EJS",
+    "Express",
+    "PostgreSQL",
+    "Node.js",
+    "Unhinged UX",
+    "Geopolitical Chaos",
+    "Azure App Service"
+  ],
+  "author": "Junaid Arif",
+  "contributors": [],
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": ""
+  },
   "dependencies": {
     "axios": "^1.7.9",
     "body-parser": "^1.20.3",
+    "dotenv": "^16.5.0",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
-    "pg": "^8.13.1"
-  }
+    "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "license": "ISC"
 }
