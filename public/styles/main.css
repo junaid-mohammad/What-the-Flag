@@ -1,0 +1,167 @@
+/* General styling */
+body {
+  background-image: url(../images/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: Arial, sans-serif;
+}
+
+/* Shared card styling for both quiz and game-over cards */
+.card, .game-over-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  max-width: 40%;
+  height: 400px;
+  margin: 15% auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Welcome message styling */
+.welcome-message {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: bold;
+}
+
+h1 {
+  text-align: center;
+  font-size: 5rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+#countryFlag {
+  height: 50px;
+  margin-top: -10px;
+}
+
+/* Input field styling */
+input {
+  text-align: center;
+  width: 60%;
+  padding: 10px;
+  padding-left: 60px;
+  padding-right: 60px;
+  font-size: large;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Button styling (submit and restart) */
+button, .restart-button {
+  font-weight: 800;
+  letter-spacing: 2px;
+  font-size: large;
+  display: block;
+  width: 80%;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: #054b92;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.restart-button {
+  width: 75%;
+}
+
+button:hover, .restart-button:hover {
+  background-color: #f88783;
+}
+
+.horizontal-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Styling for result text */
+#result {
+  text-align: center;
+  font-size: 24px;
+}
+
+/* Animations for correct/wrong answers */
+.checkmark, .cross {
+  color: transparent;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+}
+
+.checkmark {
+  animation-name: checkmark;
+}
+
+.cross {
+  animation-name: cross;
+}
+
+@keyframes checkmark {
+  0% { color: transparent; }
+  100% { color: green; }
+}
+
+@keyframes cross {
+  0% { color: transparent; }
+  100% { color: red; }
+}
+
+/* Additional styling for the game-over card */
+.game-over-card h1 {
+  font-size: 3rem;
+  color: #333;
+}
+
+.game-over-card p, .game-over-card .message {
+  font-size: 1.5rem;
+  color: #666;
+  margin-top: 0;
+}
+
+.game-over-card .message {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #054b92;
+  margin: 0;
+}
+
+/* Footer Section */
+footer {
+  /* margin-top: -100px; */
+  text-align: center;
+  color: #333;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+}
+
+footer nav {
+  margin-top: 10px;
+}
+
+footer nav a {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 0 15px;
+  transition: color 0.3s ease;
+}
+
+footer nav a:hover {
+  color: #3c67e3;
+}

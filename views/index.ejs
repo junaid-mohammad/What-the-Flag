@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flags Quiz</title>
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+
+<body id="app">
+  <form class="card" action="/submit" method="post">
+    <div class="horizontal-container">
+      <p class="welcome-message">Welcome to Wave the Flags!</p>
+    </div>
+    <div class="horizontal-container">
+      <h3>
+        Total Score:
+        <span id="score">
+          <%= locals.totalScore ? totalScore : "0" %>
+        </span>
+      </h3>
+    </div>
+
+    <h1 id="countryFlag">
+      <%=question.flag %>
+    </h1>
+    <div class="answer-container">
+      <input type="text" name="answer" id="userInput" placeholder="Name the country" autofocus autocomplete="off">
+    </div>
+    <button type="submit">SUBMIT<% if(locals.wasCorrect){ %>
+        <span class="checkmark">✔</span>
+        <% } else if (locals.wasCorrect===false) { %>
+          <span class="cross" id="error">✖</span>
+          <% } %>
+    </button>
+  </form>
+  <script>
+    var wasCorrect = "<%= locals.wasCorrect %>";
+    var correctAnswer = "<%= locals.correctAnswer %>";
+    // console.log(wasCorrect)
+    if (wasCorrect === "false") {
+      document.getElementById("app").innerHTML = `
+        <div class="card game-over-card">
+          <h1>Game Over!</h1>
+          <p>Your final score: <%= locals.totalScore %></p>
+          <p>The correct answer was: <strong>${correctAnswer}</strong></p>
+          <p class="message">Better luck next time, pookie! 🌟</p>
+          <a href="/" class="restart-button">RESTART</a>
+        </div>
+      `;
+    }
+  </script>
+  <footer>
+    <p>Copyright &copy; <%= new Date().getFullYear() %> | Junaid Arif</p>
+    <nav>
+      <a href="https://junaid-mohammad.github.io/HTML-Portfolio-Website/">Website</a>
+      <a href="https://github.com/junaid-mohammad">GitHub</a>
+      <a href="https://www.linkedin.com/in/junaidarif-mohammad/">LinkedIn</a>
+      <a href="mailto:mohammad.junaidarif@mail.mcgill.ca">Email</a>
+    </nav>
+  </footer>
+</body>
+
+</html>
