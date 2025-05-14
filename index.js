@@ -1,66 +1,71 @@
-import express from "express";
-import bodyParser from "body-parser";
-import pg from "pg";
+// index.js
+// Main entry point for the "What the Flag?" app – handles server setup and routing
 
-// Create an Express application
+import express from "express";                     // Express framework
+import bodyParser from "body-parser";              // Middleware for form data
+import dotenv from "dotenv";                       // Load .env variables
+import path from "path";                           // File path utilities
+import { fileURLToPath } from "url";               // ES module __dirname workaround
+import { loadFlagData, getRandomFlag } from "./utils/flagData.js"; // Quiz logic
+
+dotenv.config();
+
+// Initialize Express app
 const app = express();
-const port = 3000;
-
-// Configure PostgreSQL database connection
-const db = new pg.Client({
-  user: "postgres",     // Database username
-  host: "localhost",    // Database host (localhost in this case)
-  database: "world",    // Database name
-  password: "junaid",   // Database password
-  port: 5432,           // Database port (default PostgreSQL port)
-});
-
-// Connect to the database
-db.connect();
-
-let quiz = [];  // Array to store quiz data
-
-// Fetch flag data from the 'flags' table in the database
-db.query("SELECT * FROM flags", (err, res) => {
-  if (err) {
-    console.error("Error executing query", err.stack);
-  } else {
-    quiz = res.rows;  // Store fetched flag data in the quiz array
-  }
-  db.end();  // Close the database connection
-});
-
-let totalCorrect = 0;  // Counter to track correct answers
+const port = process.env.PORT || 3000;
 
 // Middleware setup
-app.use(bodyParser.urlencoded({ extended: true })); // Parse form data
-app.use(express.static("public"));  // Serve static files from the 'public' directory
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));                 // Serve static files (CSS, JS, images)
 
-let currentQuestion = {};  // Variable to store the current quiz question
+// Set view engine
+app.set("view engine", "ejs");
 
-// Handle GET request to home page
+// Resolve __dirname in ES module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.set("views", path.join(__dirname, "views"));   // View directory path
+
+// App-level state
+let flagQuiz = [];          // Flag dataset (country + emoji or path)
+let totalCorrect = 0;       // Score tracker
+let currentQuestion = {};   // Active flag
+
+// Load data from DB or fallback
+loadFlagData()
+  .then((data) => {
+    flagQuiz = data;
+  })
+  .catch((err) => {
+    console.error("Failed to load flag data:", err);
+  });
+
+// GET: Homepage
 app.get("/", (req, res) => {
-  totalCorrect = 0;  // Reset score when visiting home page
-  nextQuestion();  // Load a new quiz question
-  res.render("index.ejs", { question: currentQuestion });  // Render the quiz page
+  totalCorrect = 0;
+  currentQuestion = getRandomFlag(flagQuiz);
+  res.render("index", {
+    question: currentQuestion,
+    wasCorrect: null,
+    totalScore: totalCorrect,
+    correctAnswer: null,
+  });
 });
 
-// Handle POST request when a user submits an answer
+// POST: Flag guess submission
 app.post("/submit", (req, res) => {
-  let answer = req.body.answer.trim();  // Get user's answer and remove extra spaces
-  let isCorrect = false;  // Default to incorrect answer
-  let correctAnswer = currentQuestion.name;  // Get correct answer
+  const answer = req.body.answer.trim();
+  const correctAnswer = currentQuestion.name;
+  let isCorrect = false;
 
-  // Check if the user's answer matches the correct answer (case insensitive)
-  if (currentQuestion.name.toLowerCase() === answer.toLowerCase()) {
-    totalCorrect++;  // Increase score if correct
+  if (correctAnswer.toLowerCase() === answer.toLowerCase()) {
+    totalCorrect++;
     isCorrect = true;
   }
 
-  nextQuestion();  // Load the next question
+  currentQuestion = getRandomFlag(flagQuiz);
 
-  // Render the page with updated score and answer feedback
-  res.render("index.ejs", {
+  res.render("index", {
     question: currentQuestion,
     wasCorrect: isCorrect,
     totalScore: totalCorrect,
@@ -68,13 +73,7 @@ app.post("/submit", (req, res) => {
   });
 });
 
-// Function to pick a random flag from the quiz array
-function nextQuestion() {
-  const randomCountryFlag = quiz[Math.floor(Math.random() * quiz.length)];
-  currentQuestion = randomCountryFlag;  // Set new question
-}
-
-// Start the server and listen on the specified port
+// Start the server
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`🌍 What the Flag? running at http://localhost:${port}`);
 });

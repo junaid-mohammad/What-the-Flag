@@ -41,6 +41,3 @@ bower_components/
 # CSV and SQL files
 *.csv
 *.sql
-
-# Backup files
-solution.js

@@ -1,167 +1,290 @@
-/* General styling */
-body {
-  background-image: url(../images/background.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  font-family: Arial, sans-serif;
-}
+/* ================================
+   🌐 Global Layout & Page Structure
+   ================================ */
 
-/* Shared card styling for both quiz and game-over cards */
-.card, .game-over-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  max-width: 40%;
-  height: 400px;
-  margin: 15% auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
+   html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  body {
+    background-image: url(../images/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+  }
+  
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+  }
+  
+  #app {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+  }
+  
+  /* ================================
+     🧾 Card Styling (Quiz + Game Over)
+     ================================ */
+  
+  .card, .game-over-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 90%;
+    max-width: 600px;
+    height: 400px;
+    margin: 80px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* ================================
+     🧠 Welcome Message
+     ================================ */
+  
+  .welcome-message {
+    text-align: center;
+  }
 
-/* Welcome message styling */
-.welcome-message {
-  text-align: center;
-  font-size: 1.5rem;
-  color: #333;
-  font-weight: bold;
-}
+  .wtf-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #111;
+  }
+  
+  .wtf-subheading {
+    font-size: 1.1rem;
+    color: #444;
+    font-style: italic;
+    /* margin-top: 5px; */
+  }
 
-h1 {
-  text-align: center;
-  font-size: 5rem;
-}
+  /* ================================
+     💰 Score Display
+     ================================ */
+  
+  h3 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .horizontal-container {
+    display: flex;
+    justify-content: space-between;
+  }
 
-h3 {
-  font-size: 1.5rem;
-  margin: 0;
-}
+  /* ================================
+     🚩 Flag Display
+     ================================ */
+  
+  #countryFlag {
+    font-size: 4rem;         
+    line-height: 1.2;        
+    margin: 10px 0;          
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);  
+    display: inline-block;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)); 
+    transition: transform 0.2s ease; 
+  }
+  
+  #countryFlag:hover {
+    transform: scale(1.05);        
+  }
 
-#countryFlag {
-  height: 50px;
-  margin-top: -10px;
-}
+  /* ================================
+     ✏️ Input Field
+     ================================ */
+  
+  .answer-container {
+    width: 100%;
+    text-align: center;
+  }
+  
+  input {
+    text-align: center;
+    width: 60%;
+    padding: 10px;
+    font-size: large;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* ================================
+     🟦 Button Styling (Submit + Restart)
+     ================================ */
+  
+  button, .restart-button {
+    font-weight: 800;
+    letter-spacing: 2px;
+    font-size: large;
+    display: block;
+    width: 80%;
+    padding: 15px 40px;
+    margin-top: 20px;
+    margin-bottom: 1opx;
+    background-color: #054b92;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Slightly narrower restart button for variation */
+  .restart-button {
+    width: 68%;
+  }
+  
+  button:hover, .restart-button:hover {
+    background-color: #f88783;
+  }
+  
+  /* ================================
+     ✅ Answer Feedback Animations
+     ================================ */
+  
+  #result {
+    text-align: center;
+    font-size: 24px;
+  }
+  
+  .checkmark, .cross {
+    color: transparent;
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+  }
+  
+  .checkmark {
+    animation-name: checkmark;
+  }
+  
+  .cross {
+    animation-name: cross;
+  }
+  
+  @keyframes checkmark {
+    0% { color: transparent; }
+    100% { color: green; }
+  }
+  
+  @keyframes cross {
+    0% { color: transparent; }
+    100% { color: red; }
+  }
+  
+  /* ================================
+     🪦 Game Over Card Text Styles
+     ================================ */
+  
+  .game-over-card h1 {
+    font-size: 2.5rem;
+    color: #333;
+  }
+  
+  .game-over-card p {
+    font-size: 1.5rem;
+    color: #666;
+    margin-top: 0;
+  }
+  
+  .game-over-card .message {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #054b92;
+    margin-top: 0;
+  }
+  
+  /* ================================
+   🔗 Footer Styles (Updated for Visibility)
+   ================================ */
 
-/* Input field styling */
-input {
-  text-align: center;
-  width: 60%;
-  padding: 10px;
-  padding-left: 60px;
-  padding-right: 60px;
-  font-size: large;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Button styling (submit and restart) */
-button, .restart-button {
-  font-weight: 800;
-  letter-spacing: 2px;
-  font-size: large;
-  display: block;
-  width: 80%;
-  padding: 15px;
-  margin-top: 20px;
-  background-color: #054b92;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  text-align: center;
-  text-decoration: none;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.restart-button {
-  width: 75%;
-}
-
-button:hover, .restart-button:hover {
-  background-color: #f88783;
-}
-
-.horizontal-container {
-  display: flex;
-  justify-content: space-between;
-}
-
-/* Styling for result text */
-#result {
-  text-align: center;
-  font-size: 24px;
-}
-
-/* Animations for correct/wrong answers */
-.checkmark, .cross {
-  color: transparent;
-  animation-duration: 0.5s;
-  animation-timing-function: ease;
-}
-
-.checkmark {
-  animation-name: checkmark;
-}
-
-.cross {
-  animation-name: cross;
-}
-
-@keyframes checkmark {
-  0% { color: transparent; }
-  100% { color: green; }
-}
-
-@keyframes cross {
-  0% { color: transparent; }
-  100% { color: red; }
-}
-
-/* Additional styling for the game-over card */
-.game-over-card h1 {
-  font-size: 3rem;
-  color: #333;
-}
-
-.game-over-card p, .game-over-card .message {
-  font-size: 1.5rem;
-  color: #666;
-  margin-top: 0;
-}
-
-.game-over-card .message {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #054b92;
-  margin: 0;
-}
-
-/* Footer Section */
-footer {
-  /* margin-top: -100px; */
-  text-align: center;
-  color: #333;
-  font-family: Arial, sans-serif;
-  font-size: 1rem;
-}
-
-footer nav {
-  margin-top: 10px;
-}
-
-footer nav a {
-  color: #333;
-  text-decoration: none;
-  font-weight: bold;
-  margin: 0 15px;
-  transition: color 0.3s ease;
-}
-
-footer nav a:hover {
-  color: #3c67e3;
-}
+  footer {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    text-align: center;
+    color: #111; 
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    background: transparent; 
+  }
+  
+  footer nav {
+    margin-top: 10px;
+  }
+  
+  footer nav a {
+    color: #222; 
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 15px;
+    transition: color 0.3s ease;
+  }
+  
+  footer nav a:hover {
+    color: #9933ff;
+  }
+    
+  /* =========================================
+     📱 Responsive Design for Mobile Devices
+     ========================================= */
+  
+  @media (max-width: 800px) {
+    button,
+    .restart-button {
+      width: 100%;
+      max-width: 350px;
+      font-size: 1rem;
+      padding: 12px 16px;
+      letter-spacing: 1px;
+      word-break: break-word;
+      white-space: normal;
+    }
+  
+    .restart-button {
+      width: 90%;
+      max-width: 320px;
+    }
+  
+    input {
+      width: 90%;
+      max-width: 300px;
+      font-size: 0.9rem;
+    }
+  
+    .card,
+    .game-over-card {
+      width: 80%;
+      max-width: 600px;
+      height: auto;
+      padding: 20px 15px;
+      margin: 40px 10px;
+    }
+  
+    .game-over-card .message,
+    .game-over-card p {
+      font-size: 1.2rem;
+    }
+  
+    footer nav a {
+      font-size: 0.85rem;
+      margin: 0 8px;
+    }
+  }  
